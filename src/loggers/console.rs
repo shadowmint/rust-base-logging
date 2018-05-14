@@ -11,6 +11,9 @@ impl ConsoleLogger {
 }
 
 fn write(message: &str) {
+    if message.len() == 0 {
+        return;
+    }
     let mut guard = stderr();
     let _ = guard.write(message.as_bytes());
     let _ = guard.write(&['\n' as u8]);
