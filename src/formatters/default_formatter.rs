@@ -4,11 +4,20 @@ use std::collections::HashMap;
 use ::{Level, LogFormatter};
 use self::time::Tm;
 
-pub struct DefaultFormatter {}
+pub struct DefaultFormatter {
+    prefix: Option<String>
+}
 
 impl DefaultFormatter {
     pub fn new() -> DefaultFormatter {
-        return DefaultFormatter {};
+        return DefaultFormatter {
+            prefix: None
+        };
+    }
+
+    pub fn with_prefix(mut self, prefix: &str) -> DefaultFormatter {
+        self.prefix = Some(prefix.to_string());
+        self
     }
 
     fn combine(&self, message: Option<&str>, properties: Option<HashMap<&str, &str>>) -> String {
@@ -37,6 +46,9 @@ impl LogFormatter for DefaultFormatter {
             Ok(i) => i,
             Err(_) => String::from("")
         };
-        return format!("{} {:?} - {}", timestring, level, self.combine(message, properties));
+        return match self.prefix {
+            Some(ref p) => format!("{}: {} {:?} - {}", p, timestring, level, self.combine(message, properties)),
+            None => format!("{} {:?} - {}", timestring, level, self.combine(message, properties))
+        };
     }
 }

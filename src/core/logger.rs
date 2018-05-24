@@ -5,10 +5,12 @@ use core::traits::Loggable;
 use core::traits::LogFormatter;
 use core::level::Level;
 use ::formatters::DefaultFormatter;
+use std::collections::HashMap;
 
 pub struct Logger {
     loggers: Vec<Box<Log + Send>>,
     format: Box<LogFormatter + Send>,
+    level: Level,
 }
 
 impl<'a> Logger {
@@ -16,6 +18,7 @@ impl<'a> Logger {
         return Logger {
             loggers: Vec::new(),
             format: Box::new(DefaultFormatter::new()),
+            level: Level::Warn,
         };
     }
 
@@ -29,11 +32,47 @@ impl<'a> Logger {
         return self;
     }
 
-    pub fn log<'b, 'c, T>(&'c mut self, level: Level, message: T) where T: Loggable + 'b {
+    pub fn with_level(mut self, min_level: Level) -> Logger {
+        self.level = min_level;
+        return self;
+    }
+
+    pub fn log<'b, 'c, T>(&'c mut self, level: Level, loggable: T) where T: Loggable + 'b {
+        if level > self.level {
+            return;
+        }
         let now = time::now();
-        let raw = self.format.log_format(level, now, message.log_message(), message.log_properties());
+        let message = loggable.log_message();
+        let properties = loggable.log_properties();
+        if !self.is_loggable(&message, &properties) {
+            return;
+        }
+        let raw = self.format.log_format(level, now, message, properties);
+        if raw.len() == 0 {
+            return;
+        }
         for target in self.loggers.iter_mut() {
             target.log(&raw);
         }
+    }
+
+    fn is_loggable(&self, message: &Option<&str>, props: &Option<HashMap<&str, &str>>) -> bool {
+        match message {
+            Some(s) => {
+                if s.len() > 0 {
+                    return true;
+                }
+            }
+            None => {}
+        };
+        match props {
+            Some(p) => {
+                if p.keys().len() > 0 {
+                    return true;
+                }
+            }
+            None => {}
+        };
+        return false;
     }
 }
