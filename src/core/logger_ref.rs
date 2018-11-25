@@ -23,6 +23,16 @@ impl LoggerRef {
         return self;
     }
 
+    pub fn with_level(self, min_level: Level) -> LoggerRef {
+        match self.logger.lock() {
+            Ok(mut logger_ref) => {
+                *logger_ref = Some(logger_ref.take().unwrap().with_level(min_level));
+            }
+            Err(_) => {}
+        }
+        return self;
+    }
+
     pub fn with_format<T>(self, formatter: T) -> LoggerRef where T: LogFormatter + Send + 'static {
         match self.logger.lock() {
             Ok(mut logger_ref) => {
@@ -60,7 +70,7 @@ mod tests {
 
     #[test]
     fn test_logger_ref_from_immutable_ref_cross_thread() {
-        let logger = LoggerRef::new().with(MockLogger::new()).with_format(JsonFormatter::new());
+        let logger = LoggerRef::new().with(MockLogger::new()).with_format(JsonFormatter::new()).with_level(Level::Info);
         let copy = logger.clone();
         logger.log(Level::Info, "Hello World");
         let  _ = thread::spawn(move || {
