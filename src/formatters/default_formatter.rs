@@ -1,7 +1,7 @@
 extern crate time;
 
 use std::collections::HashMap;
-use ::{Level, LogFormatter};
+use crate::{Level, LogFormatter};
 use self::time::Tm;
 
 pub struct DefaultFormatter {}

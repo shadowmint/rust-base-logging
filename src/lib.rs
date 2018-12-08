@@ -1,8 +1,3 @@
-#[cfg(test)]
-#[allow(dead_code)]
-#[macro_use]
-extern crate log;
-
 #[allow(dead_code)]
 #[macro_use]
 extern crate serde_derive;
@@ -16,20 +11,19 @@ pub mod formatters;
 pub mod loggables;
 pub mod loggers;
 
-pub use core::traits::Log;
-pub use core::traits::Loggable;
-pub use core::traits::LogFormatter;
-pub use core::logger::Logger;
-pub use core::level::Level;
-pub use core::logger_ref::LoggerRef;
-pub use loggables::Record;
-pub use infrastructure::interop::setup_standard_logger;
+pub use crate::core::traits::Log;
+pub use crate::core::traits::Loggable;
+pub use crate::core::traits::LogFormatter;
+pub use crate::core::logger::Logger;
+pub use crate::core::level::Level;
+pub use crate::core::logger_ref::LoggerRef;
+pub use crate::loggables::Record;
 
 #[cfg(test)]
 mod tests {
-    use ::Log;
-    use ::Logger;
-    use ::Level;
+    use crate::Log;
+    use crate::Logger;
+    use crate::Level;
 
     pub struct CustomLogger {}
 

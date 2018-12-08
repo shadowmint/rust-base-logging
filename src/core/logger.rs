@@ -1,10 +1,10 @@
 extern crate time;
 
-use core::traits::Log;
-use core::traits::Loggable;
-use core::traits::LogFormatter;
-use core::level::Level;
-use ::formatters::DefaultFormatter;
+use crate::core::traits::Log;
+use crate::core::traits::Loggable;
+use crate::core::traits::LogFormatter;
+use crate::core::level::Level;
+use crate::formatters::DefaultFormatter;
 
 pub struct Logger {
     loggers: Vec<Box<Log + Send>>,

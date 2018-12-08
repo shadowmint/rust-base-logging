@@ -1,7 +1,7 @@
 extern crate time;
 
 use std::collections::HashMap;
-use core::level::Level;
+use crate::core::level::Level;
 use self::time::Tm;
 
 pub trait Log {
@@ -15,4 +15,4 @@ pub trait Loggable {
 
 pub trait LogFormatter {
     fn log_format(&self, level: Level, timestamp: Tm, message: Option<&str>, properties: Option<HashMap<&str, &str>>) -> String;
-}
+}/**/

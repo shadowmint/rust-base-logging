@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-use ::Loggable;
+use crate::Loggable;
 
 pub struct Record {
     message: String,
@@ -37,8 +37,8 @@ impl Loggable for Record {
 
 #[cfg(test)]
 mod tests {
-    use ::{Logger, Level, Record};
-    use loggers::MockLogger;
+    use crate::{Logger, Level, Record};
+    use crate::loggers::MockLogger;
 
     #[test]
     fn test_record_is_loggable() {

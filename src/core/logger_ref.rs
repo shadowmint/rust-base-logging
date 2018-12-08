@@ -1,4 +1,4 @@
-use ::{Logger, Log, Loggable, Level, LogFormatter};
+use crate::{Logger, Log, Loggable, Level, LogFormatter};
 use std::sync::{Arc, Mutex};
 
 /// Logger ref is a convenient Arc<Mutex<Logger>> to allow use in immutable situations.
@@ -53,9 +53,9 @@ impl Clone for LoggerRef {
 
 #[cfg(test)]
 mod tests {
-    use ::{LoggerRef, Level};
-    use formatters::JsonFormatter;
-    use loggers::MockLogger;
+    use crate::{LoggerRef, Level};
+    use crate::formatters::JsonFormatter;
+    use crate::loggers::MockLogger;
     use std::thread;
 
     #[test]
