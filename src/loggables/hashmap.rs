@@ -1,4 +1,4 @@
-use core::traits::Loggable;
+use crate::core::traits::Loggable;
 use std::collections::HashMap;
 
 impl Loggable for HashMap<&'static str, &'static str> {
@@ -38,10 +38,10 @@ impl Loggable for HashMap<String, String> {
 
 #[cfg(test)]
 mod tests {
-    use ::Logger;
-    use loggers::MockLogger;
+    use crate::Logger;
+    use crate::loggers::MockLogger;
     use std::collections::HashMap;
-    use ::Level;
+    use crate::Level;
 
     #[test]
     fn test_hashmap_is_loggable() {

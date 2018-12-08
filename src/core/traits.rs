@@ -1,7 +1,7 @@
 extern crate time;
 
 use std::collections::HashMap;
-use core::level::Level;
+use crate::core::level::Level;
 use self::time::Tm;
 
 pub trait Log {

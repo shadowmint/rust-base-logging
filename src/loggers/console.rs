@@ -1,5 +1,5 @@
-use core::traits::Log;
-use infrastructure::stdout::stderr;
+use crate::core::traits::Log;
+use crate::infrastructure::stdout::stderr;
 use std::io::Write;
 
 pub struct ConsoleLogger {}
@@ -27,9 +27,9 @@ impl Log for ConsoleLogger {
 
 #[cfg(test)]
 mod tests {
-    use ::Logger;
-    use ::Level;
-    use loggers::ConsoleLogger;
+    use crate::Logger;
+    use crate::Level;
+    use crate::loggers::ConsoleLogger;
 
     #[test]
     fn test_mock_logger() {

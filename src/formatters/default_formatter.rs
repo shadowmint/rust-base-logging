@@ -1,23 +1,14 @@
 extern crate time;
 
 use std::collections::HashMap;
-use ::{Level, LogFormatter};
+use crate::{Level, LogFormatter};
 use self::time::Tm;
 
-pub struct DefaultFormatter {
-    prefix: Option<String>
-}
+pub struct DefaultFormatter {}
 
 impl DefaultFormatter {
     pub fn new() -> DefaultFormatter {
-        return DefaultFormatter {
-            prefix: None
-        };
-    }
-
-    pub fn with_prefix(mut self, prefix: &str) -> DefaultFormatter {
-        self.prefix = Some(prefix.to_string());
-        self
+        return DefaultFormatter {};
     }
 
     fn combine(&self, message: Option<&str>, properties: Option<HashMap<&str, &str>>) -> String {
@@ -46,9 +37,6 @@ impl LogFormatter for DefaultFormatter {
             Ok(i) => i,
             Err(_) => String::from("")
         };
-        return match self.prefix {
-            Some(ref p) => format!("{}: {} {:?} - {}", p, timestring, level, self.combine(message, properties)),
-            None => format!("{} {:?} - {}", timestring, level, self.combine(message, properties))
-        };
+        return format!("{} {:?} - {}", timestring, level, self.combine(message, properties));
     }
 }

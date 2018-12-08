@@ -1,10 +1,10 @@
 [package]
 name = "base-logging"
-version = "0.2.0"
+version = "0.1.0"
 authors = ["Douglas Linder <douglas.linder@gmail.com>"]
+edition = "2018"
 
 [dependencies]
-log = "0.4.1"
 time = "0.1.39"
 serde_derive = "*"
 serde = "*"

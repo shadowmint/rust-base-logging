@@ -1,4 +1,4 @@
-use ::Log;
+use crate::Log;
 
 pub struct FileLogger {
 }
@@ -19,9 +19,9 @@ impl Log for FileLogger {
 
 #[cfg(test)]
 mod tests {
-    use ::Logger;
-    use ::Level;
-    use loggers::FileLogger;
+    use crate::Logger;
+    use crate::Level;
+    use crate::loggers::FileLogger;
 
     #[test]
     fn test_mock_logger() {

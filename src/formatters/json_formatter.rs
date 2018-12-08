@@ -3,7 +3,7 @@ extern crate serde;
 extern crate serde_json;
 
 use std::collections::HashMap;
-use ::{Level, LogFormatter};
+use crate::{Level, LogFormatter};
 use self::time::Tm;
 
 #[derive(Serialize, Deserialize)]
@@ -58,9 +58,9 @@ impl LogFormatter for JsonFormatter {
 
 #[cfg(test)]
 mod tests {
-    use ::{Logger, Level};
-    use ::formatters::JsonFormatter;
-    use loggers::MockLogger;
+    use crate::{Logger, Level};
+    use crate::formatters::JsonFormatter;
+    use crate::loggers::MockLogger;
 
     #[test]
     fn test_json_formatter() {

@@ -1,5 +1,5 @@
-use core::traits::Log;
-use infrastructure::stdout::debug;
+use crate::core::traits::Log;
+use crate::infrastructure::stdout::debug;
 
 /// A basic mokck of Logger for testing purposes.
 /// To enable logging in test mode, use `debug()`.
@@ -31,9 +31,9 @@ impl Log for MockLogger {
 
 #[cfg(test)]
 mod tests {
-    use ::Logger;
-    use loggers::MockLogger;
-    use ::Level;
+    use crate::Logger;
+    use crate::loggers::MockLogger;
+    use crate::Level;
 
     #[test]
     fn test_mock_logger() {
